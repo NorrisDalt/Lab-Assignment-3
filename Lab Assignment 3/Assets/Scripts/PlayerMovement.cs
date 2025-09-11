@@ -1,24 +1,25 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-public class NewMonoBehaviourScript : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     Rigidbody2D rb;
-    public float speed = 5;
+    public float speed = 5f;
     Vector2 movement;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
 
-        movement = new Vector2(horizontalInput, verticalInput).normalized;
+        movement = new Vector2(horizontal, vertical);
+
+        if (movement.sqrMagnitude > 1f)
+            movement.Normalize();
     }
 
     void FixedUpdate()
