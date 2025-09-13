@@ -14,7 +14,12 @@ public class EnemyOrbit : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, angle - 90f);
 
         Vector2 perpendicular = new Vector2(-toPlayer.y, toPlayer.x).normalized;
-        transform.position += (Vector3)(perpendicular * orbitSpeed * Time.fixedDeltaTime);
+
+        float distance = toPlayer.magnitude;
+        float dynamicOrbitSpeed = distance * orbitSpeed;
+
+
+        transform.position += (Vector3)(perpendicular * dynamicOrbitSpeed * Time.fixedDeltaTime);
     }
 }
 
